@@ -1,17 +1,43 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Items to buy
     </ion-title>
+    <ion-icon size="large" class="icon-add-item" slot="end" name="add-circle-outline" (click)="addTask()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item-sliding  *ngFor="let item of items">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="removeItem(item)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+  
+      <ion-item class="m-item">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+        <div class="qtd-item-options">
+          <ion-icon  name="remove-outline" color="tertiary" (click)="decrQtditem(item)"></ion-icon>
+          <p class="qtd-items" color="secondary" size="small">{{item.qtd}}</p>
+          <ion-icon name="add-outline" color="tertiary" (click)="incrQtditem(item)"></ion-icon>
+        </div>
+        
+        <div class="content-item">
+          <div id="name">
+            <ion-label>{{item.name}}</ion-label>
+          </div>
+          <div id="descripition">
+            <p id="descr">{{item.description}}</p>
+            <p id="value">R$ {{item.value}}</p>
+          </div>
+        </div>
+  
+        <ion-icon slot="end" name="cart" *ngIf="item.qtd != 0" color="success" (click)="addToCart(item)"></ion-icon>
+        <ion-icon slot="end" name="cart" *ngIf="item.qtd === 0" color="medium" (click)="addToCart(item)"></ion-icon>
+        <!--<ion-icon name="ellipsis-vertical-outline" (click)="itemOptions(task)"></ion-icon>-->
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
